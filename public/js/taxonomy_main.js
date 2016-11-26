@@ -7,13 +7,63 @@ $(document).ready(function () {
     				"themes" : { "icons" : false }
     			},
 				"checkbox" : {
+      				"keep_selected_style" : false,
+      				"three_state" : false,
+        			"cascade" : 'down'
+    			},
+    			"plugins" : [ "checkbox" ]
+			}
+		); 
+		$('#Bacteria_jstree').jstree(
+			{
+				"core" : {
+    				"animation" : 0,
+    				"check_callback" : true,
+    				"themes" : { "icons" : false }
+    			},
+				"checkbox" : {
       				"keep_selected_style" : false
     			},
     			"plugins" : [ "checkbox" ]
 			}
 		); 
-		$('#Bacteria_jstree').jstree(); 
-		$('#Fungi_jstree').jstree(); 
-		$('#Plantae_jstree').jstree(); 
-		$('#Protista_jstree').jstree(); 
+		$('#Fungi_jstree').jstree(
+			{
+				"core" : {
+    				"animation" : 0,
+    				"check_callback" : true,
+    				"themes" : { "icons" : false }
+    			},
+				"checkbox" : {
+      				"keep_selected_style" : false
+    			},
+    			"plugins" : [ "checkbox" ]
+			}
+		); 
+		$('#Plantae_jstree').jstree(
+			{
+				"core" : {
+    				"animation" : 0,
+    				"check_callback" : true,
+    				"themes" : { "icons" : false }
+    			},
+				"checkbox" : {
+      				"keep_selected_style" : false
+    			},
+    			"plugins" : [ "checkbox" ]
+			}
+		); 
+		$('#Protista_jstree').jstree(
+		{
+				"core" : {
+    				"animation" : 0,
+    				"check_callback" : true,
+    				"themes" : { "icons" : false }
+    			},
+				"checkbox" : {
+      				"keep_selected_style" : false
+    			},
+    			"plugins" : [ "checkbox" ]
+			}
+		); 
 	});

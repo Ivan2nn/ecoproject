@@ -31,7 +31,6 @@ Route::get('/', function () {
 Route::get('/api/species/multi/{speciesCodes}',['as' => 'api.species.multi', 'uses' => 'SpeciesController@multipleShow']);
 
 Route::get('/species-table', function () {
-	
 	$species = App\Species::all();
     return view('basic.species-table-search', compact('species'));
 });
@@ -78,6 +77,8 @@ Route::get('api/taxonomy/{ids}', function($ids) {
 	return $taxonomy;
 
 });
+
+Route::get('api/taxonomytospecies/', 'TaxonomyController@getSpeciesFromTaxonomy');
 
 Route::get('api/taxonomy-to-species/{ids}', function($ids) {
 	$pieces = explode(":", $ids);

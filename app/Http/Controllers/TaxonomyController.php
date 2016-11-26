@@ -6,25 +6,49 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Taxonomy;
+use App\Species;
+
 class TaxonomyController extends Controller
 {
+	// Api ::
+
+	public function getSpeciesFromTaxonomy(Request $request) {
+		
+		$allSpecies = array();
+		$list_of_families_code = $request->get('codes');
+		//$returnSpecies = $this->family_species($list_of_families_code[0]);
+		foreach ($list_of_families_code as $single_family_code) {
+			$species_group = $this->family_species($single_family_code);
+			$species_group->each(function($item, $key) use(&$allSpecies) {
+				if ($item) {
+					array_push($allSpecies, $item);
+				}
+			});
+		}
+		
+		return json_encode($allSpecies);
+	}
+
+	// Kingdom Section ////////////
+
     public function kingdom_index() {
     	$kingdoms = App\Kingdom::all();
 
     	return json_encode($kingdoms);
     }
 
-    public function kingdom_show($id) {
-    	$kingdom = App\Kingdom::find($id);
+    public function kingdom_show($code) {
+    	$kingdom = App\Kingdom::find($code);
 
     	return json_encode($kingdom);
     }
 
-    public function kingdom_species($id) {
-    	$taxonomies = App\Taxonomy::where('kingdom_id',$id)->get();
-
-    	return json_encode($this->getSpeciesInfo($species));
+    public function kingdom_species($code) {
+    	return get_species_from_taxonomy('kingdom',$code);
     }
+
+    // Phylum Section ////////////
 
     public function phylum_index() {
     	$phyla = App\Phylum::all();
@@ -32,32 +56,118 @@ class TaxonomyController extends Controller
     	return json_encode($phyla);
     }
 
-    public function phylum_show($id) {
-    	$phylum = App\Phylum::find($id);
+    public function phylum_show($code) {
+    	$phylum = App\Phylum::find($code);
 
     	return json_encode($phylum);
     }
 
-    public function phylum_species($id) {
-    	$taxonomies = App\Taxonomy::where('phylum_id, $id')->get();
-
-    	return json_encode($this->getSpeciesInfo($taxonomies));
+    public function phylum_species($code) {
+    	return get_species_from_taxonomy('phylum',$code);
     }
 
-    public function getSpeciesInfo($taxonomies) {
-    	$species = App\Species::find($taxonomies->species_code);
-    	$speciesInfo = $species->map($item, $key) {
-    		return [
-    			'species_code' 	=> $item->species_code,
-    			'species_name' 	=> $item->species_name,
-    			'kingdom_name' 	=> $item->hasKingdom ? $item->tax_kingdom->kingdom_name : '',
-    			'phylum_name'	=> $item->hasPhylum ? $item->tax_phylum->phylum_name : '',
-    			'class_name'	=> $item->hasClassis ? $item->tax_classis->class_name : '',
-    			'order_name'	=> $item->hasOrder ? $item->tax_order->order_name : '',
-    			'family_name'	=> $item->hasFamily ? $item->tax_family->family_name : '',
-    			'genus_name'	=> $item->hasGenus ? $item->tax_genus->genus_name : '',
-    			'bioregions'	=> $item->biogeographicregions()
-    		];
-    	}
+    // Classis Section ////////////
+
+    public function classis_index() {
+    	$classes = App\Classis::all();
+
+    	return json_encode($classes);
     }
+
+    public function classis_show($code) {
+    	$classis = App\Classis::find($code);
+
+    	return json_encode($classis);
+    }
+
+    public function classis_species($code) {
+    	return get_species_from_taxonomy('classis',$code);
+    }
+
+    // Order Section ////////////
+
+    public function order_index() {
+    	$orders = App\Order::all();
+
+    	return json_encode($orders);
+    }
+
+    public function order_show($code) {
+    	$order = App\Order::find($code);
+
+    	return json_encode($order);
+    }
+
+    public function order_species($code) {
+    	return get_species_from_taxonomy('order',$code);
+    }
+
+    // Family Section ////////////
+
+    public function family_index() {
+    	$families = App\Family::all();
+
+    	return json_encode($families);
+    }
+
+    public function family_show($code) {
+    	$family = App\Family::find($code);
+
+    	return json_encode($family);
+    }
+
+    public function family_species($code) {
+    	return $this->get_species_from_taxonomy('family',$code);
+    }
+
+    // Genus Section ////////////
+    
+    public function genus_index() {
+    	$genera = App\Genus::all();
+
+    	return json_encode($genera);
+    }
+
+    public function genus_show($code) {
+    	$genus = App\Genus::find($code);
+
+    	return json_encode($genus);
+    }
+
+    public function genus_species($code) {
+    	return get_species_from_taxonomy('genus',$code);
+    }
+
+    ////////////////// Helpers Section
+
+    public function get_species_from_taxonomy($taxonomy, $code) {
+    	$taxonomies = Taxonomy::where($taxonomy . '_code',$code)->get();
+
+    	return $this->get_species_info($taxonomies);
+    }
+
+    public function get_species_info($taxonomies) {
+    	$species_info = [];
+    	$species_info = $taxonomies->map(function($item, $key) {
+    		$species = Species::find($item->species_code);
+    		// ERROR :: If the original database of the species would be full even with duplicate species this could be taken out
+    		if ($species) {
+    			return [
+    				'species_code' => $species->species_code,
+    				'species_name' => $species->species_name,
+    				'class_name' => $species->taxonomy->tax_classis ? $species->taxonomy->tax_classis->class_name : '',
+    				'family_name' => $species->taxonomy->tax_family ? $species->taxonomy->tax_family->family_name : '',
+    				'kingdom_name' => $species->taxonomy->tax_kingdom ? $species->taxonomy->tax_kingdom->kingdom_name : '',
+    				'order_name' => $species->taxonomy->tax_order ? $species->taxonomy->tax_order->order_name : '',
+    				'phylum_name' => $species->taxonomy->tax_phylum ? $species->taxonomy->tax_phylum->phylum_name : '',
+    				'genus_name' => $species->taxonomy->tax_genus ? $species->taxonomy->tax_genus->genus_name : '',
+    				'bioregions' => $species->biogeographicregions()
+
+    			];
+    		}
+    	});
+
+    	return $species_info;
+    }
+
 }

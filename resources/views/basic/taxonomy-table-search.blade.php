@@ -17,7 +17,8 @@
 	<div class="p-w-md m-t-sm">
 		<div class="row">
 			<div class="col-sm-12">
-			<form method="GET" action="api/taxonomy-to-species/" v-ajax>
+
+			 <form method="GET" action="api/taxonomytospecies" v-ajax>
                 {!! csrf_field() !!}
 
         <!-- <div class="form-group">
@@ -72,51 +73,62 @@
         </select>
         <br>
         <span>Selected Genus: @{{ selectedGenus }}</span> -->
-        @foreach($kingdoms as $kingdom)
-        <div class="panel-group col-sm-2" id="accordion">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="{{ '#' . $kingdom->kingdom_name . '-collapse' }}">
-                  </span>{{ $kingdom->kingdom_name}}</a>
-              </h4>
-            </div>
-            <div id="{{ $kingdom->kingdom_name . '-collapse' }}" class="panel-collapse collapse in">
-              <div id="{{ $kingdom->kingdom_name . '_jstree' }}">
-                <ul>
-                @foreach($kingdom->phyla() as $phylum)
-                  <li>{{ $phylum->phylum_name }}
-                    <ul>
-                    @foreach($phylum->classes() as $class)
-                      <li>{{ $class->class_name }}
-                        <ul>
-                        @foreach($class->orders() as $order)
-                        <li>{{ $order->order_name }}
+        <div class="row">
+          @foreach($kingdoms as $kingdom)
+          <div class="panel-group col-sm-2" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="{{ '#' . $kingdom->kingdom_name . '-collapse' }}">
+                    </span>{{ $kingdom->kingdom_name}}</a>
+                </h4>
+              </div>
+              <div id="{{ $kingdom->kingdom_name . '-collapse' }}" class="panel-collapse collapse in">
+                <div id="{{ $kingdom->kingdom_name . '_jstree' }}">
+                  <ul>
+                  @foreach($kingdom->phyla() as $phylum)
+                    <li>{{ $phylum->phylum_name }}
+                      <ul>
+                      @foreach($phylum->classes() as $class)
+                        <li>{{ $class->class_name }}
                           <ul>
-                          @foreach($order->families() as $family)
-                          <li>{{ $family->family_name }}
+                          @foreach($class->orders() as $order)
+                          <li>{{ $order->order_name }}
+                            <ul>
+                            @foreach($order->families() as $family)
+                            <li code='{{ $family->family_code }}'>{{ $family->family_name }}
+                            </li>
+                            @endforeach
+                            </ul>
                           </li>
                           @endforeach
                           </ul>
                         </li>
-                        @endforeach
-                        </ul>
-                      </li>
-                    @endforeach
-                    </ul>
-                  </li>
-                @endforeach
-                </ul>
+                      @endforeach
+                      </ul>
+                    </li>
+                  @endforeach
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
+          @endforeach
+
+          <div class="col-sm-2">
+            <div class="panel panel-info">
+              test
+            </div>
+          </div>
         </div>
-        @endforeach
-				
-        <div class="input-group">
-					
-        	<button type="submit" class="btn btn-primary" v-show="true"><strong>Search</strong></button>         
-				</div>	
+        <div class="row">
+				  <div class="col-sm-4">
+            <div class="input-group">
+    					
+            	<button type="submit" class="btn btn-primary" v-show="true"><strong>Search</strong></button>         
+    				</div>	
+          </div>
+        </div>
 			</form>
 			</div>
 			

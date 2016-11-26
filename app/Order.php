@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-	protected $table = 'orders';
+	protected $table = 'tax_10orders';
 
-    protected $primaryKey = 'order_id';
+    protected $primaryKey = 'order_code';
 
     public function taxonomy() {
     	return $this->hasMany('App\Taxonomy');
     }
 
     public function families() {
-    	$families_id = Taxonomy::where('order_id',$this->order_id)->select('family_id')->get();
+    	$families_code = Taxonomy::where('order_code',$this->order_code)->select('family_code')->get();
     	
-    	return Family::whereIn('family_id', $families_id)->get();
+    	return Family::whereIn('family_code', $families_code)->get();
     }
 }

@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Genus extends Model
 {
-	protected $table = 'genera';
+	protected $table = 'tax_17genera';
 
-    protected $primaryKey = 'genus_id';
+    protected $primaryKey = 'genus_code';
 
     public function taxonomy() {
     	return $this->hasMany('App\Taxonomy');

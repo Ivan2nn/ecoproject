@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kingdom extends Model
 {
-	protected $table = 'kingdoms';
+	protected $table = 'tax_01kingdoms';
 
-    protected $primaryKey = 'kingdom_id';
+    protected $primaryKey = 'kingdom_code';
 
     public function taxonomy() {
     	return $this->hasMany('App\Taxonomy');
     }
 
     public function phyla() {
-    	$phyla_id = Taxonomy::where('kingdom_id',$this->kingdom_id)->select('phylum_id')->get();
+    	$phyla_code = Taxonomy::where('kingdom_code',$this->kingdom_code)->select('phylum_code')->get();
     	
-    	return Phylum::whereIn('phylum_id', $phyla_id)->get();
+    	return Phylum::whereIn('phylum_code', $phyla_code)->get();
     }
 }

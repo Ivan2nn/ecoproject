@@ -56,8 +56,8 @@
         <table class="table table-hover">
           <thead>
             <tr>
-				<th>Scientific Name</th>
-				<th>Status</th>
+        				<th>Scientific Name</th>
+        				<th>Status</th>
               	<th>Trend</th>
               	<th>Biogeographic Region</th>
               	<th>Family</th>

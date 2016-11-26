@@ -15,7 +15,7 @@ class Taxonomy extends Model
     }
 
     public function tax_classis() {
-    	return $this->belongsTo('App\Classis','class_id');
+    	return $this->belongsTo('App\Classis','class_code');
     }
 
     public function hasFamily() {
@@ -23,7 +23,7 @@ class Taxonomy extends Model
     }
 
     public function tax_family() {
-    	return $this->belongsTo('App\Family','family_id');
+    	return $this->belongsTo('App\Family','family_code');
     }
 
     public function hasGenus() {
@@ -31,7 +31,7 @@ class Taxonomy extends Model
     }
 
     public function tax_genus() {
-    	return $this->belongsTo('App\Genus','genus_id');
+    	return $this->belongsTo('App\Genus','genus_code');
     }
 
     public function hasPhylum() {
@@ -39,7 +39,7 @@ class Taxonomy extends Model
     }
 
     public function tax_phylum() {
-    	return $this->belongsTo('App\Phylum','phylum_id');
+    	return $this->belongsTo('App\Phylum','phylum_code');
     }
 
     public function hasKingdom() {
@@ -47,7 +47,7 @@ class Taxonomy extends Model
     }
 
     public function tax_kingdom() {
-    	return $this->belongsTo('App\Kingdom','kingdom_id');
+    	return $this->belongsTo('App\Kingdom','kingdom_code');
     }
 
     public function hasOrder() {
@@ -55,6 +55,6 @@ class Taxonomy extends Model
     }
 
     public function tax_order() {
-    	return $this->belongsTo('App\Order','order_id');
+    	return $this->belongsTo('App\Order','order_code');
     }
 }

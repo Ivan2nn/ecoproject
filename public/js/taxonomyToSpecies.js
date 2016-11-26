@@ -13,26 +13,24 @@ Vue.directive('ajax', {
 	onSubmit: function(e) {
 		e.preventDefault();
 		this.vm.loading = true;
-		// For the moment we use a string
-		//var kingdomQuery = vm.selectedKingdom ? "k" + vm.selectedKingdom : "k" + '0';
-		//var phylumQuery = vm.selectedPhylum ? 'p' + vm.selectedPhylum : 'p' +  '0' ;
-		//var classQuery = vm.selectedClassis ? 'c' + vm.selectedClassis : 'c' + '0' ;
-		//var orderQuery = vm.selectedOrder ? 'o' + vm.selectedOrder : 'o' + '0' ;
-		//var familyQuery = vm.selectedFamily ? 'f' + vm.selectedFamily : 'f' + '0' ;
-		//var genusQuery = vm.selectedGenus ? 'g' + vm.selectedGenus : 'g' + '0' ;
+	
 		var checked_ids = []; 
+		checked_ids = $("#Animalia_jstree").jstree("get_selected",true);
+		
+		var checked_leaves = checked_ids.filter(function(elm) {
+			if (elm.children.length == 0)
+				return elm;		
+			}).map(function(elm, index) {
+				return elm.li_attr['code'];
+			});
 
-		console.log($("#Animalia_jstree").jstree("get_selected",true));
-           console.log(checked_ids); 
-		//var taxonomyQuery = kingdomQuery + ':' + phylumQuery + ':' + classQuery + ':' + orderQuery + ':' + familyQuery + ':' + 'g103';
-
-		//this.vm.$http.get(this.el.action + taxonomyQuery).then((response) => {
+		this.vm.$http.get(this.el.action, {params: { codes: checked_leaves } }).then((response) => {
 			// Inside the response data there are also the taxonomy data, but the google map API cna distinguish by itself
-		//	this.vm.speciesDetails = JSON.parse(response.data);
-		//this.vm.loading = false;
-		//}, (response) => {
+			this.vm.speciesDetails = JSON.parse(response.data);
+			this.vm.loading = false;
+		}, (response) => {
 
-		//});
+		});
 	}
 });
 
