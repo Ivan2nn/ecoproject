@@ -22,10 +22,22 @@ Route::resource('api/species','SpeciesController');
 
 Route::resource('api/cellcodes','CellCodeController');
 
-Route::get('/', function () {
-	
-	$species = App\Species::all();
-    return view('basic.species-graphic-search', compact('species'));
+Route::get('/', array('as' => 'home', function () {
+	return view('basic.landing');
+	//$species = App\Species::all();
+    //return view('basic.species-graphic-search', compact('species'));
+}));
+
+Route::get('species-basic-search/{code?}', array('as' => 'species-basic-search', function($code = null) {
+	$species = null;
+	if ($code) {
+		$species = App\Species::where('species_code',$code)->first();
+	}
+	return view('basic.species-graphic-search', compact('species'));
+}));
+
+Route::get('species', function() {
+	return App\Species::all();
 });
 
 Route::get('/api/species/multi/{speciesCodes}',['as' => 'api.species.multi', 'uses' => 'SpeciesController@multipleShow']);

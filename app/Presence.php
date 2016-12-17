@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Trend extends Model
+class Presence extends Model
 {
-	protected $table = 'trend';
+    protected $table = 'status_presences';
 	
     protected $fillable = [
         'name',

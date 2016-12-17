@@ -10,6 +10,7 @@ function initialize() {
     });
 
     infoWindow = new google.maps.InfoWindow();
+
     //map.data.loadGeoJson('../json/griglia.json');
     /*map.data.setStyle(function(feature) {
         var color = 'white';

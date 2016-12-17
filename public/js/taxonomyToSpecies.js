@@ -26,6 +26,7 @@ Vue.directive('ajax', {
 
 		this.vm.$http.get(this.el.action, {params: { codes: checked_leaves } }).then((response) => {
 			// Inside the response data there are also the taxonomy data, but the google map API cna distinguish by itself
+			console.log(JSON.parse(response.data));
 			this.vm.speciesDetails = JSON.parse(response.data);
 			this.vm.loading = false;
 		}, (response) => {
@@ -66,6 +67,63 @@ Vue.component('multi-species-info-cell', {
 	methods: {
 		notify: function (spec) {
 			this.$dispatch('child-obj', spec);
+      	},
+
+      	itemStatusStyle: function(item, bioreg) {
+      		
+      		temp = 'item.species_conservation_' + bioreg;
+      		
+      		if (eval(temp) == 'U2') {
+      			return 'red-rectangle';
+      		};
+
+      		if (eval(temp) == 'U1') {
+      			return 'yellow-rectangle';
+      		};
+
+      		if (eval(temp) == 'FV') {
+      			return 'green-rectangle';
+      		};
+
+      		if (eval(temp) == 'XX') {
+      			return 'grey-rectangle';
+      		};
+
+      		if (eval(temp) == '') {
+      			return 'fa arrow-big fa-minus';
+      		};
+
+      	},
+
+      	itemTrendStyle: function(item, bioreg) {
+      		
+      		var temp = 'item.species_trend_' + bioreg;
+      		
+      		if (eval(temp) == '-') {
+      			return 'fa fa-level-down arrow-big color-red';
+      		};
+
+      		if (eval(temp) == '=') {
+      			return 'fa fa-arrows-h arrow-big color-yellow';
+      		};
+
+      		if (eval(temp) == '+') {
+      			return 'fa fa-level-up arrow-big color-green';
+      		};
+
+      		if (eval(temp) == 'x') {
+      			return 'fa fa-question arrow-big color-grey';
+      		};
+
+      		if (eval(temp) == '') {
+      			return 'fa arrow-big fa-minus';
+      		};
+
+      	},
+
+      	goToSpeciesPage: function(item) {
+      		console.log('test');
+      		this.$router.go('/');
       	}
 	}
 });

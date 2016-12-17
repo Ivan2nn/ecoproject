@@ -55,6 +55,8 @@ class CellCodeController extends Controller
         $cellCodeData['regBio'] = $selectedCellCode->biogeographic_regions;
         $cellCodeData['species'] = $selectedCellCode->species;
         foreach ($cellCodeData['species'] as $temp) {
+            $temp['name'] = $temp->species_name;
+            $temp['code'] = $temp->species_code;
             $temp['classis'] = ($temp->taxonomy->tax_classis) ? $temp->taxonomy->tax_classis->class_name : '';
             $temp['family'] = ($temp->taxonomy->tax_family) ? $temp->taxonomy->tax_family->family_name : '';
             $temp['kingdom'] = ($temp->taxonomy->tax_kingdom) ? $temp->taxonomy->tax_kingdom->kingdom_name : '';

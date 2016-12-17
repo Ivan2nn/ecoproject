@@ -155,14 +155,19 @@ class TaxonomyController extends Controller
     			return [
     				'species_code' => $species->species_code,
     				'species_name' => $species->species_name,
+                    'species_conservation_alp' => $species->getFormattedConservation("ALP"),
+                    'species_conservation_con' => $species->getFormattedConservation("CON"),
+                    'species_conservation_med' => $species->getFormattedConservation("MED"),
+                    'species_trend_alp' => $species->getFormattedTrend("ALP"),
+                    'species_trend_con' => $species->getFormattedTrend("CON"),
+                    'species_trend_med' => $species->getFormattedTrend("MED"),
     				'class_name' => $species->taxonomy->tax_classis ? $species->taxonomy->tax_classis->class_name : '',
     				'family_name' => $species->taxonomy->tax_family ? $species->taxonomy->tax_family->family_name : '',
     				'kingdom_name' => $species->taxonomy->tax_kingdom ? $species->taxonomy->tax_kingdom->kingdom_name : '',
     				'order_name' => $species->taxonomy->tax_order ? $species->taxonomy->tax_order->order_name : '',
     				'phylum_name' => $species->taxonomy->tax_phylum ? $species->taxonomy->tax_phylum->phylum_name : '',
     				'genus_name' => $species->taxonomy->tax_genus ? $species->taxonomy->tax_genus->genus_name : '',
-    				'bioregions' => $species->biogeographicregions()
-
+    				'bioregions' => $species->biogeographicregions->pluck('name')->toArray()
     			];
     		}
     	});

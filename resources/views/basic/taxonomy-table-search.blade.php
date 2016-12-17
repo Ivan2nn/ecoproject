@@ -154,28 +154,40 @@
     </template>
 
     <template id="multi-species-info-cell-template">
-        <table class="table table-hover">
+        <table class="table table-hover table-fixed">
           <thead>
             <tr>
-                <th>Scientific Code</th>
-          			<th>Scientific Name</th>
-          			<th>Status</th>
-              	<th>Trend</th>
-              	<th>Biogeographic Region</th>
-              	<th>Kingdom</th>
-              	<th>Phylum</th>
-              	<th>Class</th>
-              	<th>Order</th>
-              	<th>Family</th>
-              	<th>Genus</th>
+                <th rowspan="2">Scientific Code</th>
+          			<th rowspan="2">Scientific Name</th>
+          			<th colspan="3">Status</th>
+              	<th colspan="3">Trend</th>
+              	<th rowspan="2">Biogeographic Region</th>
+              	<th rowspan="2">Kingdom</th>
+              	<th rowspan="2">Phylum</th>
+              	<th rowspan="2">Class</th>
+              	<th rowspan="2">Order</th>
+              	<th rowspan="2">Family</th>
+              	<th rowspan="2">Genus</th>
+            </tr>
+            <tr>
+                <th>ALP</th>
+                <th>CON</th>
+                <th>MED</th>
+                <th>ALP</th>
+                <th>CON</th>
+                <th>MED</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="spec in list">
-              <td>@{{ spec.species_code }}</td>
+              <td><a v-bind:href=" '/species-basic-search/'+spec.species_code">@{{ spec.species_code }}</a></td>
               <td>@{{ spec.species_name }}</td>
-              <td>Status</td>
-              <td>Trend</td>
+              <td><div v-bind:class="itemStatusStyle(spec, 'alp')"></div></td>
+              <td><div v-bind:class="itemStatusStyle(spec, 'con')"></div></td>
+              <td><div v-bind:class="itemStatusStyle(spec, 'med')"></div></td>
+              <td><i v-bind:class="itemTrendStyle(spec, 'alp')" aria-hidden="true"></i></td>
+              <td><i v-bind:class="itemTrendStyle(spec, 'con')" aria-hidden="true"></i></td>
+              <td><i v-bind:class="itemTrendStyle(spec, 'med')" aria-hidden="true"></i></td>
               <td>@{{ spec.bioregions }}</td>
               <td>@{{ spec.kingdom_name }}</td>
               <td>@{{ spec.phylum_name }}</td>

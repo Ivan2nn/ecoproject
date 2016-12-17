@@ -16,4 +16,8 @@ class Biogeographicregion extends Model
     {
     	return $this->belongsToMany('App\Cellcode');
     }
+
+    public function species() {
+        return $this->belongsToMany('App\Species','species_data0712_presence','biogeographicregion_id','species_code');
+    }
 }

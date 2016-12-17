@@ -49,6 +49,7 @@
               <thead>
                 <tr>
 					<th>Scientific Name</th>
+          <th>Scientific Code</th>
 					<th>Status</th>
                   	<th>Trend</th>
                   	<th>Family</th>
@@ -58,12 +59,29 @@
                   	<th>Class</th>
                   	<th>Genus</th>
                 </tr>
+                <tr>
+                	<th></th>
+                	<th></th>
+                	<th>ALP</th>
+                	<th>MED</th>
+                	<th>CON</th>
+                	<th>ALP</th>
+                	<th>MED</th>
+                	<th>CON</th>
+                	<th></th>
+                	<th></th>
+                	<th></th>
+                	<th></th>
+                	<th></th>
+                	<th></th>
+                </tr>
               </thead>
               <tbody>
                 <tr v-for="spec in list">
                   <td>@{{ spec.name }} </td>
-                  <td>Status</td>
-                  <td>Trend</td>
+                  <td>@{{ spec.code }} </td>
+                  <td>XX</td>
+                  <td>XX</td>
                   <td>@{{ spec.family }}</td>
                   <td>@{{ spec.kingdom }}</td>
                   <td>@{{ spec.order }}</td>

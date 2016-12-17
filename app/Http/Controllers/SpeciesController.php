@@ -14,9 +14,10 @@ class SpeciesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return Species::all();
+        return view('basic.species-graphic-search');
     }
 
     /**
@@ -65,13 +66,21 @@ class SpeciesController extends Controller
             }
         }
 
+        $outputData['species']['species_name'] = $selectedSpecies->species_name;
+        $outputData['species']['species_code'] = $selectedSpecies->species_code;
+        $outputData['species']['species_conservation_alp'] = $selectedSpecies->getFormattedConservation("ALP");
+        $outputData['species']['species_conservation_con'] = $selectedSpecies->getFormattedConservation("CON");
+        $outputData['species']['species_conservation_med'] = $selectedSpecies->getFormattedConservation("MED");
+        $outputData['species']['species_trend_alp'] = $selectedSpecies->getFormattedTrend("ALP");
+        $outputData['species']['species_trend_con'] = $selectedSpecies->getFormattedTrend("CON");
+        $outputData['species']['species_trend_med'] = $selectedSpecies->getFormattedTrend("MED");
         $outputData['species']['classis'] = ($selectedSpecies->taxonomy->tax_classis) ? $selectedSpecies->taxonomy->tax_classis->class_name : '';
         $outputData['species']['family'] = ($selectedSpecies->taxonomy->tax_family) ? $selectedSpecies->taxonomy->tax_family->family_name : '';
         $outputData['species']['kingdom'] = ($selectedSpecies->taxonomy->tax_kingdom) ? $selectedSpecies->taxonomy->tax_kingdom->kingdom_name : '';
         $outputData['species']['order'] = ($selectedSpecies->taxonomy->tax_order) ? $selectedSpecies->taxonomy->tax_order->order_name : '';
         $outputData['species']['phylum'] = ($selectedSpecies->taxonomy->tax_phylum) ? $selectedSpecies->taxonomy->tax_phylum->phylum_name : '';
         $outputData['species']['genus'] = ($selectedSpecies->taxonomy->tax_genus) ? $selectedSpecies->taxonomy->tax_genus->genus_name : '';
-        $outputData['species']['bioregions'] = $selectedSpecies->biogeographicregions();
+        $outputData['species']['bioregions'] = $selectedSpecies->biogeographicregions->pluck('name')->toArray();
         
         return json_encode($outputData);
      }
