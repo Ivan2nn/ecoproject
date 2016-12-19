@@ -13,21 +13,27 @@ Vue.directive('ajax', {
 
 	onSubmit: function(e) {
 		e.preventDefault();
-		this.vm.loading = true;
-		console.log(this.el.action);
-		this.vm.$http.get(this.el.action + this.vm.code).then((response) => {
+		if (this.vm.searchingNames)
+			this.vm.loadingNames = true;
+		if (this.vm.searchingCodes)
+			this.vm.loadingCodes = true;
+		this.vm.isSearching = true;
+		this.vm.dataAvailable = false;
+		this.vm.$http.get(this.el.action + this.vm.queryCode).then((response) => {
 			// Inside the response data there are also the taxonomy data, but the google map API cna distinguish by itself
 			this.vm.$dispatch('final-map-data', response.data);
 			this.vm.speciesDetails = JSON.parse(response.data)['species'];
-		this.vm.loading = false;
+			this.vm.loadingNames = false;
+			this.vm.loadingCodes = false;
+			this.vm.dataAvailable = true;
 		}, (response) => {
 
 		});
 	}
 });
 
-Vue.component('species', {
-	template: '#species-template',
+Vue.component('species-names', {
+	template: '#species-names-template',
 
 	props: ['list'],
 
@@ -38,8 +44,26 @@ Vue.component('species', {
 	},
 
 	methods: {
-		notify: function (spec) {
-			this.$dispatch('child-obj', spec);
+		notify: function (spec, searchedField) {
+			this.$dispatch('child-obj', spec, searchedField);
+      	}
+	}
+});
+
+Vue.component('species-codes', {
+	template: '#species-codes-template',
+
+	props: ['list'],
+
+	data: function() {
+		return {
+			list: []
+		};
+	},
+
+	methods: {
+		notify: function (spec, searchedField) {
+			this.$dispatch('child-obj', spec, searchedField);
       	}
 	}
 });
@@ -56,8 +80,8 @@ Vue.component('info-cell', {
 	},
 
 	methods: {
-		notify: function (spec) {
-			this.$dispatch('child-obj', spec);
+		notify: function (spec, searchedField) {
+			this.$dispatch('child-obj', spec, searchedField);
       	}
 	}
 });
@@ -72,8 +96,8 @@ new Vue({
 	el: 'body',
 
 	data: {
-		query: '',
-		code: '',
+		queryName: '',
+		queryCode: '',
 		outCode: '',
 		outSpeciesName: '',
 		species: [],
@@ -81,7 +105,11 @@ new Vue({
 		selectedOne: '',
 		dataAvailable: false,
 		filterSpecies: true,
-		loading: false
+		loadingNames: false,
+		loadingCodes: false,
+		isSearching: false,
+		searchingNames: false,
+		searchingCodes: false
 	},
 
 	ready: function() {
@@ -96,16 +124,16 @@ new Vue({
 		// If we land on the page with a specific species requested from other pages we will not activate the filter on the species
 		// If someone clicks inside the input box we can reactivate the filter cause it means that he wants to make a new search
 		if (vm.outSpeciesName != '') {
-			vm.query = vm.outSpeciesName;
-			vm.code = vm.outCode;
+			vm.queryName = vm.outSpeciesName;
+			vm.queryCode = vm.outCode;
 			vm.filterSpecies = false;
-			vm.loading = true;
-			vm.$http.get('/api/species/' + vm.code).then((response) => {
+			vm.loadingNames = true;
+			vm.$http.get('/api/species/' + vm.queryCode).then((response) => {
 				// Inside the response data there are also the taxonomy data, but the google map API cna distinguish by itself
 				this.$dispatch('final-map-data', response.data);
 				this.speciesDetails = JSON.parse(response.data)['species'];
 				this.dataAvailable = true;
-				this.loading = false;
+				this.loadingNames = false;
 			}, (response) => {
 
 			});
@@ -113,41 +141,70 @@ new Vue({
 	},
 
 	computed: {
-		searched: function() {
+		searchedNames: function() {
 			if (this.filterSpecies == true) {
 				vm = this;
-				searchedValues = [];
-				if (this.query) {
-					searchedValues = this.species.filter(this.filterQuery(this.query));
+				searchedNamesValues = [];
+				if (this.queryName) {
+					searchedNamesValues = this.species.filter(this.filterQueryNames(this.queryName));
 				}
-				return searchedValues;
+				return searchedNamesValues;
+			}
+		},
+
+		searchedCodes: function() {
+			if (this.filterSpecies == true) {
+				vm = this;
+				searchedCodesValues = [];
+				if (this.queryCode) {
+					searchedCodesValues = this.species.filter(this.filterQueryCodes(this.queryCode));
+				}
+				return searchedCodesValues;
 			}
 		}
 	},
 
 	methods: {
 
-		resetQuery: function() {
-			this.query = '';
-			this.code = '';
+		resetQueries: function() {
+			this.queryName = '';
+			this.queryCode = '';
 			this.filterSpecies = true;
 			this.outSpeciesName = '';
 			this.outCode = '';
+			this.isSearching = false;
+			this.loadingNames = false;
+			this.searchingNames = false;
+			this.searchingCodes = false;
 		},
 
-		filterQuery: function(queryString) {
+		filterQueryNames: function(queryString) {
 			return function(element) {
 				return element.species_name.toLowerCase().startsWith(queryString.toLowerCase());
 			}
 		},
 
-		search: function() {	
+		filterQueryCodes: function(queryString) {
+			return function(element) {
+				return element.species_code.toString().startsWith(queryString.toLowerCase());
+			}
+		},
+
+		searchNames: function() {	
 			vm = this;
-			if (this.query) {
-				console.log(this.query);
-				this.searched = this.species.filter(this.filterQuery(this.query));
+			if (this.queryName) {
+				this.searchedNames = this.species.filter(this.filterQueryNames(this.queryName));
 			} else {
-				this.searched = [];
+				this.searchedNames = [];
+			}	
+		},
+
+		searchCodes: function() {	
+			vm = this;
+			if (this.queryCode) {
+				this.searchedCodes = this.species.filter(this.filterQueryCodes(this.queryCode));
+			} else {
+				this.searchedCodes = [];
 			}	
 		},
 
@@ -189,8 +246,6 @@ new Vue({
       	itemTrendStyle: function(item, bioreg) {
       		
       		var temp = 'item.species_trend_' + bioreg;
-
-      		console.log(eval(temp));
       		
       		if (eval(temp) == '-') {
       			return 'fa fa-level-down arrow-big color-red';
@@ -216,12 +271,22 @@ new Vue({
 	},
 
 	events: {
-    	'child-obj': function (childObj) {
+    	'child-obj': function (childObj, searchedField) {
 	      	// `this` in event callbacks are automatically bound
 	      	// to the instance that registered it
+	      	// searchedField can be 'names' or 'codes'
 	      	this.selectedOne = childObj;
-	      	this.query = childObj.species_name;
-	      	this.code = childObj.species_code;
+	      	this.queryName = childObj.species_name;
+	      	this.queryCode = childObj.species_code;
+	      	this.isSearching = true;
+
+	      	if (searchedField == 'names') {
+	      		this.searchingNames = true;
+	      	}
+
+	      	if (searchedField == 'codes') {
+	      		this.searchingCodes = true;
+	      	}
     	},
 
     	'final-map-data': function(finalMapData) {

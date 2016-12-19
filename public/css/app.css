@@ -58,5 +58,15 @@
 .i-box-mimi {
   margin-top: 20px;
 }
+.input-font-mimi-normal {
+  font-size: 18px;
+}
+.input-font-mimi-big {
+  font-size: 20px;
+}
+.sk-spinner-chasing-dots.sk-spinner {
+  width: 30px;
+  height: 30px;
+}
 
 /*# sourceMappingURL=app.css.map */
