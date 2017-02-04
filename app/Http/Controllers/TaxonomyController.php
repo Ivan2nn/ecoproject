@@ -16,10 +16,10 @@ class TaxonomyController extends Controller
 	public function getSpeciesFromTaxonomy(Request $request) {
 		
 		$allSpecies = array();
-		$list_of_families_code = $request->get('codes');
+		$list_of_genera_code = $request->get('codes');
 		//$returnSpecies = $this->family_species($list_of_families_code[0]);
-		foreach ($list_of_families_code as $single_family_code) {
-			$species_group = $this->family_species($single_family_code);
+		foreach ($list_of_genera_code as $single_genus_code) {
+			$species_group = $this->genus_species($single_genus_code);
 			$species_group->each(function($item, $key) use(&$allSpecies) {
 				if ($item) {
 					array_push($allSpecies, $item);
@@ -135,7 +135,7 @@ class TaxonomyController extends Controller
     }
 
     public function genus_species($code) {
-    	return get_species_from_taxonomy('genus',$code);
+    	return $this->get_species_from_taxonomy('genus',$code);
     }
 
     ////////////////// Helpers Section
@@ -151,7 +151,7 @@ class TaxonomyController extends Controller
     	$species_info = $taxonomies->map(function($item, $key) {
     		$species = Species::find($item->species_code);
     		// ERROR :: If the original database of the species would be full even with duplicate species this could be taken out
-    		if ($species) {
+    		if ($species && $species->taxonomy) {
     			return [
     				'species_code' => $species->species_code,
     				'species_name' => $species->species_name,
@@ -167,7 +167,8 @@ class TaxonomyController extends Controller
     				'order_name' => $species->taxonomy->tax_order ? $species->taxonomy->tax_order->order_name : '',
     				'phylum_name' => $species->taxonomy->tax_phylum ? $species->taxonomy->tax_phylum->phylum_name : '',
     				'genus_name' => $species->taxonomy->tax_genus ? $species->taxonomy->tax_genus->genus_name : '',
-    				'bioregions' => $species->biogeographicregions->pluck('name')->toArray()
+    				'bioregions' => $species->biogeographicregions->pluck('name')->toArray(),
+    				'annexes' => $species->annexes()
     			];
     		}
     	});

@@ -81,6 +81,7 @@ class SpeciesController extends Controller
         $outputData['species']['phylum'] = ($selectedSpecies->taxonomy->tax_phylum) ? $selectedSpecies->taxonomy->tax_phylum->phylum_name : '';
         $outputData['species']['genus'] = ($selectedSpecies->taxonomy->tax_genus) ? $selectedSpecies->taxonomy->tax_genus->genus_name : '';
         $outputData['species']['bioregions'] = $selectedSpecies->biogeographicregions->pluck('name')->toArray();
+        $outputData['species']['annexes'] = $selectedSpecies->annexes();
         
         return json_encode($outputData);
      }

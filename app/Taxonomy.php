@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Taxonomy extends Model
 {
+    protected $table = 'taxonomy';
+
 	public function species() {
 		return $this->belongsTo('App\Species', 'species_code', 'species_code');
 	}

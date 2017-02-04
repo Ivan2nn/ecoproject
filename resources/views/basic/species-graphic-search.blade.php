@@ -135,32 +135,32 @@
 						<div class="p-m">
 							<ul class="list-unstyled m-t-md">
 								<li>
-				                    <div class="pull-left"><h3>Kingdom:</h3></div>
+				                    <div class="pull-left"><span><img src="{!! asset('images/kingdom_vlittle.png') !!}" /></span><span class="species-information-font">Kingdom:</span></div>
 				                    <div class="pull-right"><h4 class="text-left">@{{ speciesDetails.kingdom }}</h4></div>
 				                    <div class="clearfix"></div>   
 				                </li>
 				                <li>
-				                    <div class="pull-left"><h3>Phylum:</h3></div>
+				                    <div class="pull-left"><span><img src="{!! asset('images/phylum_vlittle.png') !!}" /></span><span class="species-information-font">Phylum:</span></div>
 				                    <div class="pull-right"><h4 class="text-left">@{{ speciesDetails.phylum }}</h4></div>
 				                    <div class="clearfix"></div>
 				                </li>
 				                <li>
-				                    <div class="pull-left"><h3>Classis:</h3></div> 
+				                    <div class="pull-left"><span><img src="{!! asset('images/class_vlittle.png') !!}" /></span><span class="species-information-font">Classis:</span></div> 
 				                    <div class="pull-right"><h4 class="text-left">@{{ speciesDetails.classis }}</h4></div>
 				                    <div class="clearfix"></div>
 				                </li>
 				                <li>
-				                    <div class="pull-left"><h3>Order:</h3></div>
+				                    <div class="pull-left"><span><img src="{!! asset('images/order_vlittle.png') !!}" /></span><span class="species-information-font">Order:</span></div>
 				                    <div class="pull-right"><h4 class="text-left">@{{ speciesDetails.order }}</h4></div>
 				                    <div class="clearfix"></div>
 				                </li>
 				                <li>
-				                    <div class="pull-left"><h3>Family:</h3></div>
+				                    <div class="pull-left"><span><img src="{!! asset('images/family_vlittle.png') !!}" /></span><span class="species-information-font">Family:</span></div>
 				                    <div class="pull-right"><h4 class="text-left">@{{ speciesDetails.family }}</h4></div>
 				                    <div class="clearfix"></div>
 				                </li>
 				                <li>
-				                    <div class="pull-left"><h3>Genus:</h3></div>
+				                    <div class="pull-left"><span><img src="{!! asset('images/genus_vlittle.png') !!}" /></span><span class="species-information-font">Genus:</span></div>
 				                    <div class="pull-right"><h4 class="text-left">@{{ speciesDetails.genus }}</h4></div>
 				                    <div class="clearfix"></div>			                    
 				                </li>
@@ -172,7 +172,11 @@
 							<h2>Biogeographic Regions</h2>
 						</div>
 						<div class="p-m">
-							<h4>@{{ speciesDetails.bioregions }}</h4>
+							<div class="row">
+								<div v-for="bioreg in speciesDetails.bioregions" class="col-md-4">
+									<h4>@{{ bioreg }}</h4>
+								</div>
+							</div>
 						</div>
 					</div>							
 				</div>
@@ -216,12 +220,27 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td><div :class="itemTrendStyle(speciesDetails, 'alp')"></div></td>
-										<td><div :class="itemTrendStyle(speciesDetails, 'con')"></div></td>
-										<td><div :class="itemTrendStyle(speciesDetails, 'med')"></div></td>
+										<td><div><span><img v-bind:src="itemTrendStyle(speciesDetails, 'alp')" class="trend-image" /></span></div></td>
+										<td><div><span><img v-bind:src="itemTrendStyle(speciesDetails, 'con')" class="trend-image" /></span></div></td>
+										<td><div><span><img v-bind:src="itemTrendStyle(speciesDetails, 'med')" class="trend-image" /></span></div></td>
 									</tr>
 								</tbody>
 							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="widget lazur-bg no-padding animated bounceInRight" v-if="dataAvailable">
+						<div class="p-m">
+							<h2>Annex</h2>
+						</div>
+						<div class="p-m">
+							<div class="row">
+								<div v-for="annex in speciesDetails.annexes" class="col-md-4">
+									<h3>@{{ annex }}</h3>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

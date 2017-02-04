@@ -17,7 +17,7 @@ class CellCodeController extends Controller
      */
     public function index()
     {
-        return view('basic.garage');
+        return view('basic.species-map-search');
     }
 
     /**

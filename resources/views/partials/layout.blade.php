@@ -8,6 +8,7 @@
 
     <title>Ecology Project</title>
     <link href="{!! asset('output/final.css') !!}" media="all" rel="stylesheet" type="text/css" />
+    @yield('added-styles')
 
 </head>
 

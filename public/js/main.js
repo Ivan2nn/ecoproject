@@ -19,6 +19,7 @@ Vue.directive('ajax', {
 			this.vm.loadingCodes = true;
 		this.vm.isSearching = true;
 		this.vm.dataAvailable = false;
+		console.log(this.el.action + this.vm.queryCode);
 		this.vm.$http.get(this.el.action + this.vm.queryCode).then((response) => {
 			// Inside the response data there are also the taxonomy data, but the google map API cna distinguish by itself
 			this.vm.$dispatch('final-map-data', response.data);
@@ -248,23 +249,23 @@ new Vue({
       		var temp = 'item.species_trend_' + bioreg;
       		
       		if (eval(temp) == '-') {
-      			return 'fa fa-level-down arrow-big color-red';
+      			return "../images/red_down.png";
       		};
 
       		if (eval(temp) == '=') {
-      			return 'fa fa-arrows-h arrow-big color-yellow';
+      			return "../images/yellow_stable.png";
       		};
 
       		if (eval(temp) == '+') {
-      			return 'fa fa-level-up arrow-big color-green';
+      			return "../images/green_up.png";
       		};
 
       		if (eval(temp) == 'x') {
-      			return 'fa fa-question arrow-big color-grey';
+      			return "../images/red_null.png";
       		};
 
       		if (eval(temp) == '') {
-      			return 'fa arrow-big fa-minus';
+      			return "../images/grey_null.png";
       		};
 
       	},

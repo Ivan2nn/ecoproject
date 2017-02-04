@@ -13,4 +13,10 @@ class Family extends Model
     public function taxonomy() {
     	return $this->hasMany('App\Taxonomy');
     }
+
+    public function genera() {
+    	$genera_code = Taxonomy::where('family_code',$this->family_code)->select('genus_code')->get();
+    	
+    	return Genus::whereIn('genus_code', $genera_code)->get();
+    }
 }

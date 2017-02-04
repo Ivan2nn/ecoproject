@@ -24,8 +24,14 @@ Route::resource('api/cellcodes','CellCodeController');
 
 Route::get('/', array('as' => 'home', function () {
 	return view('basic.landing');
-	//$species = App\Species::all();
-    //return view('basic.species-graphic-search', compact('species'));
+}));
+
+Route::get('context', array('as' => 'context', function() {
+	return view('basic.context');
+}));
+
+Route::get('downloads', array('as' => 'downloads', function() {
+	return view('basic.downloads');
 }));
 
 Route::get('species-basic-search/{code?}', array('as' => 'species-basic-search', function($code = null) {
@@ -92,7 +98,11 @@ Route::get('api/taxonomy/{ids}', function($ids) {
 
 Route::get('api/taxonomytospecies/', 'TaxonomyController@getSpeciesFromTaxonomy');
 
-Route::get('api/taxonomy-to-species/{ids}', function($ids) {
+Route::get('api/biogeographicregtospecies/', 'BiogeographicregionController@getSpeciesFromBiogeographicRegion');
+
+Route::get('api/conservationstatetospecies', 'StatusConserveController@getSpeciesFromStatusConserve');
+
+/*Route::get('api/taxonomy-to-species/{ids}', function($ids) {
 	$pieces = explode(":", $ids);
 	foreach ($pieces as $piece) {
 		switch ($piece[0]) {
@@ -142,9 +152,9 @@ Route::get('api/taxonomy-to-species/{ids}', function($ids) {
 	}
 
 	return json_encode($outputData);
-});
+});*/
 
-Route::get('/taxonomy-table', function () {
+Route::get('api/species-advanced-search', array('as'=>'species-advanced-search', function () {
 
 	$kingdoms = App\Kingdom::all();
 	$orders = App\Order::all();
@@ -153,5 +163,5 @@ Route::get('/taxonomy-table', function () {
 	$classes = App\Classis::all();
 	$phyla = App\Phylum::all();
 
-    return view('basic.taxonomy-table-search', compact('kingdoms','phyla','classes','order','families','genera'));
-});
+    return view('basic.species-advanced-search', compact('kingdoms','phyla','classes','order','families','genera'));
+}));

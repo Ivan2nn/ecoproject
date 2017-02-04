@@ -16,6 +16,7 @@ Vue.directive('ajax', {
 		e.preventDefault();
 		this.vm.loading = true;
 		//console.log(this.el.action + this.vm.selectedCell);
+		console.log('test');
 		this.vm.$http.get(this.el.action + this.vm.selectedCell).then((response) => {
 			//this.vm.$dispatch('final-cell-data', response.data);
 		this.vm.species = response.data.species;
