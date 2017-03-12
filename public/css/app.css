@@ -101,25 +101,42 @@
 }
 /* ========================================= */
 /* -----------------------------------------*/
-/*   LaNDING PAGE SECTION                   */
+/*   LANDING PAGE SECTION                   */
 /* -----------------------------------------*/
 /* ========================================= */
-.navbar-no-background {
-  background: rgba(0, 0, 0, 0.5);
-  min-height: 0;
-  position: relative;
-  overflow: hidden;
+.mimi-focus-home-icon-species {
+  background: url(../images/species_logo.png) no-repeat center;
 }
-.context-style {
-  text-align: justify;
+.mimi-focus-home-icon-habitat {
+  background: url(../images/habitat_logo.png) no-repeat center;
 }
-.context-style p {
-  margin-bottom: 1.5em;
-  font-weigth: strong;
-  font-size: 16px;
+/* ========================================= */
+/* -----------------------------------------*/
+/*   LINKS PAGE SECTION                   	*/
+/* -----------------------------------------*/
+/* ========================================= */
+.mimi-logo-links {
+  max-width: 350px;
+  height: auto;
 }
-.context-style p ul {
-  list-style: disc;
+/* ========================================= */
+/* -----------------------------------------*/
+/*   PANELS SPECIES - HABITAT             	*/
+/* -----------------------------------------*/
+/* ========================================= */
+.p-xl {
+  padding: 40px;
+}
+.lazur-bg,
+.bg-info {
+  background-color: #23c6c8;
+  color: #ffffff;
+}
+.widget {
+  border-radius: 5px;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 /*# sourceMappingURL=app.css.map */

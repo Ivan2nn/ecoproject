@@ -1307,14 +1307,14 @@ if (ischrome) {
 /* ================================
 ===  BACKGROUND SLIDER        ====
 ================================= */
-$.vegas('slideshow', {
+/*$.vegas('slideshow', {
   delay:7000,
   backgrounds:[
     { src:'../images/arealince2-1024x768.jpg', fade:1000 },
     { src:'../images/orso1ale-1024x768.jpg', fade:1000 },
     { src:'../images/Rosalia_Alpina-1024x813.jpg', fade:1000 }
   ]
-});
+});*/
       
    
 /* =================================

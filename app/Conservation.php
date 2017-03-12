@@ -17,4 +17,9 @@ class Conservation extends Model
     {
     	return $this->belongsToMany('App\Species','species_data0712_status_conserve','status_conserve_id','species_code');
     }
+
+    public function habitats() 
+    {
+        return $this->belongsToMany('App\Habitat','habitat_data0712_status_conserve','status_conserve_id','habitat_code');
+    }
 }

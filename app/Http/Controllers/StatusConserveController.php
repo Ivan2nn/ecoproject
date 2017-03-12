@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Conservation;
 use App\Species;
 use App\Taxonomy;
+use App\Habitat;
 
 class StatusConserveController extends Controller
 {
@@ -72,5 +73,60 @@ class StatusConserveController extends Controller
 		});
   		
   		return $species_info;
+	}
+
+	public function getHabitatsFromStatusConserve(Request $request) {
+
+    	$list_of_chosen_status = $request->get('status_checks');
+
+    	$chosen_status = collect();
+    	$counter = 0;
+
+    	foreach ($list_of_chosen_status as $key => $value)
+    	{ 
+    		if ($value == 'true') 
+    		{
+    			$counter = $counter + 1;
+
+    			$temp_reg = Conservation::where('code',$key)->first();
+    			
+    			if ($counter == 1)
+    			{
+    				$chosen_status = $temp_reg->habitats;
+    			}
+    			else 
+    			{
+    				$chosen_status = $chosen_status->merge($temp_reg->habitats);
+    			}
+    		}
+    	}
+
+	   	$final_habitats = $this->get_habitat_info($chosen_status)->unique('habitat_name');
+    	$final_habitat_sorted = $final_habitats->sortBy('habitat_name');
+
+    	return json_encode($final_habitat_sorted);
+    }
+
+    public function get_habitat_info($habitat_list) {
+		$habitat_info = [];
+		$habitat_info = $habitat_list->map(function($item, $key) {
+			$habitat = Habitat::find($item->habitat_code);
+			// ERROR :: If the original database of the habitat would be full even with duplicate habitat this could be taken out
+			if ($habitat) {
+				return [
+					'habitat_code' => $habitat->habitat_code,
+					'habitat_name' => $habitat->habitat_name,
+	                'habitat_conservation_alp' => $habitat->getFormattedConservation("ALP"),
+	                'habitat_conservation_con' => $habitat->getFormattedConservation("CON"),
+	                'habitat_conservation_med' => $habitat->getFormattedConservation("MED"),
+	                'habitat_trend_alp' => $habitat->getFormattedTrend("ALP"),
+	                'habitat_trend_con' => $habitat->getFormattedTrend("CON"),
+	                'habitat_trend_med' => $habitat->getFormattedTrend("MED"),
+					'bioregions' => $habitat->biogeographicregions->pluck('name')->toArray(),
+				];
+			}
+		});
+  		
+  		return $habitat_info;
 	}
 }

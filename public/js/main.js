@@ -19,7 +19,7 @@ Vue.directive('ajax', {
 			this.vm.loadingCodes = true;
 		this.vm.isSearching = true;
 		this.vm.dataAvailable = false;
-		console.log(this.el.action + this.vm.queryCode);
+		//console.log(this.el.action + this.vm.queryCode);
 		this.vm.$http.get(this.el.action + this.vm.queryCode).then((response) => {
 			// Inside the response data there are also the taxonomy data, but the google map API cna distinguish by itself
 			this.vm.$dispatch('final-map-data', response.data);

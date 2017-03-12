@@ -17,6 +17,11 @@ class Cellcode extends Model
     	return $this->belongsToMany('App\Species','cellcode_species','cellcode_id','species_code');
     }
 
+    public function habitats()
+    {
+        return $this->belongsToMany('App\Habitat','cellcode_habitat','cellcode_id','habitat_code');
+    }
+
     public function biogeographicregions()
     {
     	return $this->belongsToMany('App\Biogeographicregion','biogeographicregion_cellcode');

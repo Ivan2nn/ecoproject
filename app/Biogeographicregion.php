@@ -20,4 +20,8 @@ class Biogeographicregion extends Model
     public function species() {
         return $this->belongsToMany('App\Species','species_data0712_presence','biogeographicregion_id','species_code');
     }
+
+    public function habitats() {
+        return $this->belongsToMany('App\Habitat','habitat_data0712_status_conserve','biogeographicregion_id','habitat_code');
+    }
 }

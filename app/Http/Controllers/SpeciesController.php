@@ -83,6 +83,13 @@ class SpeciesController extends Controller
         $outputData['species']['bioregions'] = $selectedSpecies->biogeographicregions->pluck('name')->toArray();
         $outputData['species']['annexes'] = $selectedSpecies->annexes();
         
+        if ($selectedSpecies->hasSpecification()) {
+            $outputData['species']['lri_specs'] = $selectedSpecies->hasSpecificationLRI() ? $selectedSpecies->specification->lri_category . '[' . $selectedSpecies->specification->lri_criterion . ']' : '';
+            $outputData['species']['iucn_specs'] = $selectedSpecies->hasSpecificationIUCN() ? $selectedSpecies->specification->iucn_category . '[' . $selectedSpecies->specification->iucn_criterion . ']' : '';
+        }
+
+        $outputData['species']['modified'] = $selectedSpecies->isModified() ? $selectedSpecies->handleModifiedSpecies() : '';
+
         return json_encode($outputData);
      }
 

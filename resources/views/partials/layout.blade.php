@@ -1,160 +1,167 @@
 <!DOCTYPE html>
-<html>
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
 
-<head>
+    <head>
+        <meta charset="utf-8" />
+        <title>EcoProjct</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta http-equiv="Content-type" content="text/html" charset="utf-8">
+        <meta content="" name="species - habitat in Italy" />
+        <meta content="" name="Ivan Bernabucci" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700&amp; subset=all' rel='stylesheet' type='text/css'>
+             
+        <link href="{!! asset('output/final.css') !!}" rel="stylesheet" type="text/css"/>
+        <!-- END THEME STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" /> </head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Ecology Project</title>
-    <link href="{!! asset('output/final.css') !!}" media="all" rel="stylesheet" type="text/css" />
-    @yield('added-styles')
-
-</head>
-
-<body class="top-navigation">
-
-    <div id="wrapper">
-        <div id="page-wrapper" class="gray-bg">
-        <div class="row border-bottom white-bg">
-        <nav class="navbar navbar-static-top" role="navigation">
-            <div class="navbar-header">
-                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                    <i class="fa fa-reorder"></i>
-                </button>
-                <a href="#" class="navbar-brand">Inspinia</a>
-            </div>
-            <div class="navbar-collapse collapse" id="navbar">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a aria-expanded="false" role="button" href="layouts.html"> Back to main Layout page</a>
-                    </li>
-                    <li class="dropdown">
-                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
-                        <ul role="menu" class="dropdown-menu">
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
-                        <ul role="menu" class="dropdown-menu">
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
-                        <ul role="menu" class="dropdown-menu">
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
-                        <ul role="menu" class="dropdown-menu">
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                            <li><a href="">Menu item</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-                <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                        <a href="login.html">
-                            <i class="fa fa-sign-out"></i> Log out
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        </div>
-
-<!-- <body class="top-navigation pace">
-
-<div id="wrapper">
-
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu">
-                <li class="nav-header">
-                    <div class="dropdown profile-element">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="{{ route('home') }}">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Project LOGO</strong>
-                             </span> <span class="text-muted text-xs block">User active <b class="caret"></b></span> </span> </a>
-                            
-                    </div>
-                    <div class="logo-element">
-                        IN+
-                    </div>
-                </li>
-                <li class="active">
-                    <a href="{{ route('api.species.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Search by Species</span></a>
-                </li>
-                <li>
-                    <a href="{{ route('api.cellcodes.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Search by Cell</span> </a>
-                </li>
-            </ul>
-
-        </div>
-    </nav>
-
-    <div id="page-wrapper" class="gray-bg">
-        <div class="row border-bottom">
-            <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
-                <!-- <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                    <form role="search" class="navbar-form-custom" method="post" action="#">
-                        <div class="form-group">
-                            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+    <body class="c-layout-header-fixed c-layout-header-mobile-fixed">
+        <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
+        <!-- BEGIN: HEADER -->
+        <header class="c-layout-header c-layout-header-4 c-layout-header-default-mobile" data-minimize-offset="80">
+            <div class="c-navbar">
+                <div class="container">
+                    <!-- BEGIN: BRAND -->
+                    <div class="c-navbar-wrapper clearfix">
+                        <div class="c-brand c-pull-left">
+                            <a href="index.html" class="c-logo">
+                                <img src="{!! asset('images/logoNaturaItaliaHome_medium.png') !!}" alt="JANGO" class="c-desktop-logo">
+                                <img src="{!! asset('images/logoNaturaItaliaHome_medium.png') !!}" alt="JANGO" class="c-desktop-logo-inverse">
+                                <img src="{!! asset('images/logoNaturaItaliaHome_medium.png') !!}" alt="JANGO" class="c-mobile-logo"> </a>
+                            <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu">
+                                <span class="c-line"></span>
+                                <span class="c-line"></span>
+                                <span class="c-line"></span>
+                            </button>
+                            <button class="c-topbar-toggler" type="button">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
                         </div>
-                    </form>
-                </div> -->
-                <!-- <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                        <a href="{{ route('home') }}">
-                            <i class="fa fa-sign-out"></i> Home
-                        </a>
-                    </li>
-                </ul>
-
-            </nav>
-        </div> -->
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="container">
-                @yield('content')
+                        <!-- END: BRAND -->
+                        <!-- BEGIN: QUICK SEARCH -->
+                        <form class="c-quick-search" action="#">
+                            <input type="text" name="query" placeholder="Type to search..." value="" class="form-control" autocomplete="off">
+                            <span class="c-theme-link">&times;</span>
+                        </form>
+                        <!-- END: QUICK SEARCH -->
+                        <!-- BEGIN: HOR NAV -->
+                        <!-- BEGIN: LAYOUT/HEADERS/MEGA-MENU -->
+                        <!-- BEGIN: MEGA MENU -->
+                        <!-- Dropdown menu toggle on mobile: c-toggler class can be applied to the link arrow or link itself depending on toggle mode -->
+                        <nav class="c-mega-menu c-pull-right c-mega-menu-dark c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold">
+                            <ul class="nav navbar-nav c-theme-nav">
+                                <li class="c-active">
+                                    <a href="{{ route('home') }}" class="c-link dropdown-toggle">Home</a>                
+                                </li>
+                                <li>
+                                    <a href="{{ route('contesto-riferimento') }}" class="c-link dropdown-toggle">Contesto di Riferimento</a>                
+                                </li>
+                                <li class="c-menu-type-classic">
+                                    <a href="javascript:;" class="c-link dropdown-toggle">Specie
+                                        <span class="c-arrow c-toggler"></span>
+                                    </a>
+                                    <ul class="dropdown-menu c-menu-type-classic c-pull-left">
+                                        <li>
+                                            <a href="species-basic-search.html">Ricerca Base</a>
+                                        </li>
+                                        <li>
+                                            <a href="home-header-1-ext.html">Ricerca Avanzata</a>
+                                        </li>
+                                        <li>
+                                            <a href="home-header-2.html">Ricerca Cartografica</a>
+                                        </li>                                      
+                                    </ul>
+                                </li>
+                                <li class="c-menu-type-classic">
+                                    <a href="javascript:;" class="c-link dropdown-toggle">Habitat
+                                        <span class="c-arrow c-toggler"></span>
+                                    </a>
+                                    <ul class="dropdown-menu c-menu-type-classic c-pull-left">
+                                        <li>
+                                            <a href="species-basic-search.html">Ricerca Base</a>
+                                        </li>
+                                        <li>
+                                            <a href="home-header-1-ext.html">Ricerca Avanzata</a>
+                                        </li>
+                                        <li>
+                                            <a href="home-header-2.html">Ricerca Cartografica</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="{{ route('downloads') }}" class="c-link">Download</a>                
+                                </li>
+                                <li>
+                                    <a href="{{ route('links') }}" class="c-link">Link</a>                
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- END: MEGA MENU -->
+                        <!-- END: LAYOUT/HEADERS/MEGA-MENU -->
+                        <!-- END: HOR NAV -->
+                    </div>
+                    <!-- BEGIN: LAYOUT/HEADERS/QUICK-CART -->
+                    <!-- BEGIN: CART MENU -->
+                    
+                    <!-- END: LAYOUT/HEADERS/QUICK-CART -->
+                </div>
             </div>
+        </header>
+        <!-- END: HEADER -->
+        <!-- END: LAYOUT/HEADERS/HEADER-1 -->
+        
+        
+        <!-- BEGIN: PAGE CONTAINER -->
+        <div class="c-layout-page">
+            <!-- BEGIN: PAGE CONTENT -->
+            <!-- BEGIN: LAYOUT/SLIDERS/REVO-SLIDER-4 -->
+            @yield('content')
+            
+            <!-- END: CONTENT/TABS/TAB-1 -->
+            
+        <!-- BEGIN: LAYOUT/FOOTERS/FOOTER-6 -->
+        <a name="footer"></a>
+        <footer class="c-layout-footer c-layout-footer-6 c-bg-grey-1">
+            <div class="c-postfooter c-bg-dark-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 c-col">
+                            <p class="c-copyright c-font-grey">2015 &copy; JANGO
+                                <span class="c-font-grey-3">All Rights Reserved.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- END: LAYOUT/FOOTERS/FOOTER-6 -->
+        <!-- BEGIN: LAYOUT/FOOTERS/GO2TOP -->
+        <div class="c-layout-go2top">
+            <i class="icon-arrow-up"></i>
         </div>
-        <!-- <div class="footer">
-            <div>
-                <strong>Copyright</strong> mimi eDesign &copy; 2014-2017
-            </div>
-        </div> -->
-        <div class="footer">
-            <div class="pull-right">
-                10GB of <strong>250GB</strong> Free.
-            </div>
-            <div>
-                <strong>Copyright</strong> Example Company &copy; 2014-2017
-            </div>
-        </div>
-
-    </div>
-</div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWmknJ23y9FJ6i3EUXhZHGUDB2QEbSPXE"
-    async defer></script> 
-<script src="{!! asset('output/final.js') !!}"></script>
-@yield('added-scripts')
-
-
-</body>
+        <!-- END: LAYOUT/FOOTERS/GO2TOP -->
+        <!-- BEGIN: LAYOUT/BASE/BOTTOM -->
+        <!-- BEGIN: CORE PLUGINS -->
+        <!--[if lt IE 9]>
+  <script src="../assets/global/plugins/excanvas.min.js') !!}"></script> 
+  <![endif]-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWmknJ23y9FJ6i3EUXhZHGUDB2QEbSPXE"></script> 
+        <script src="{!! asset('output/final.js') !!}" type="text/javascript"></script>
+        
+        <script>
+            $(document).ready(function()
+            {
+                App.init(); // init core    
+            });
+        </script>
+        <!-- END: THEME SCRIPTS -->
+       @yield('added-scripts')
+        <!-- END: LAYOUT/BASE/BOTTOM -->
+    </body>
 
 </html>

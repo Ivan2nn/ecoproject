@@ -1,257 +1,113 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="description" content="" />
-<meta name="keywords" content=""/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISPRA</title>
+@extends('partials.layout')
 
-<!-- =========================
- FAV AND TOUCH ICONS  
-============================== -->
-<link rel="shortcut icon" href="images/icons/favicon.ico">
-<link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="images/icons/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="images/icons/apple-touch-icon-114x114.png">
+@section('content')
 
-<!-- =========================
-     STYLESHEETS      
-============================== -->
-<link rel="stylesheet" href="{!! asset('output/main.css') !!}">
-
-<!-- WEBFONT -->
-<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic|Montserrat:700,400|Homemade+Apple' rel='stylesheet' type='text/css'>
-
-<!--[if lt IE 9]>
-			<script src="js/html5shiv.js"></script>
-			<script src="js/respond.min.js"></script>
-		<![endif]-->
-
-<!-- JQUERY -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-</head>
-
-
-<body>
-<!-- =========================
-   PRE LOADER       
-============================== -->
-<div class="preloader">
-  <div class="status">&nbsp;</div>
+<section class="c-layout-revo-slider c-layout-revo-slider-4" dir="ltr">
+    <div class="tp-banner-container c-theme">
+        <div class="tp-banner rev_slider" data-version="5.0">
+            <ul>
+                <!--BEGIN: SLIDE #1 -->
+                <li data-transition="fade" data-slotamount="1" data-masterspeed="1000">
+                    <img alt="" src="{!! asset('images/Rosalia_Alpina.jpg') !!}" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                    <div class="tp-caption customin customout" data-x="center" data-y="center" data-hoffset="" data-voffset="-50" data-speed="500" data-start="1000" data-transform_idle="o:1;" data-transform_in="rX:0.5;scaleX:0.75;scaleY:0.75;o:0;s:500;e:Back.easeInOut;"
+                    data-transform_out="rX:0.5;scaleX:0.75;scaleY:0.75;o:0;s:500;e:Back.easeInOut;" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600">
+                        <h3 class="c-main-title-circle c-font-48 c-font-bold c-font-center c-font-uppercase c-font-white c-block"> REPORTING DIRETTIVA HABITAT
+                    </div>
+                </li>
+                <!--END -->
+                <!--BEGIN: SLIDE #2 -->
+                <li data-transition="fade" data-slotamount="1" data-masterspeed="1000">
+                    <img alt="" src="{!! asset('images/AreaLince.jpg') !!}" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                    <div class="tp-caption customin customout" data-x="center" data-y="center" data-hoffset="" data-voffset="-50" data-speed="500" data-start="1000" data-transform_idle="o:1;" data-transform_in="rX:0.5;scaleX:0.75;scaleY:0.75;o:0;s:500;e:Back.easeInOut;"
+                    data-transform_out="rX:0.5;scaleX:0.75;scaleY:0.75;o:0;s:600;e:Back.easeInOut;" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600">
+                        <h3 class="c-main-title-circle c-font-48 c-font-bold c-font-center c-font-uppercase c-font-white c-block"> REPORTING DIRETTIVA HABITAT
+                </li>
+                <!--END -->
+                <!--BEGIN: SLIDE #3 -->
+                <li data-transition="fade" data-slotamount="1" data-masterspeed="1000">
+                    <img alt="" src="{!! asset('images/Orso1Ale.jpg') !!}" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                    <div class="tp-caption customin customout" data-x="center" data-y="center" data-hoffset="" data-voffset="-50" data-speed="500" data-start="1000" data-transform_idle="o:1;" data-transform_in="rX:0.5;scaleX:0.75;scaleY:0.75;o:0;s:500;e:Back.easeInOut;"
+                    data-transform_out="rX:0.5;scaleX:0.75;scaleY:0.75;o:0;s:600;e:Back.easeInOut;" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600">
+                        <h3 class="c-main-title-circle c-font-48 c-font-bold c-font-center c-font-uppercase c-font-white c-block"> REPORTING DIRETTIVA HABITAT
+                </li>
+                <!--END -->
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- END: LAYOUT/SLIDERS/REVO-SLIDER-4 -->
+<!-- BEGIN: CONTENT/FEATURES/FEATURES-1 -->
+<div class="c-content-box c-size-md c-bg-white">
+    <div class="container">
+        <div class="section-header">
+            <div class="row">
+                <div class="col-sm-6 focus-box">
+                    <div class="service-icon">
+                        <a target="_self" href="http://www.reportnatura2000.it/habitat/">
+                        <i class="pixeden our-focus-widget-image mimi-focus-home-icon-species"></i> <!-- FOCUS ICON-->
+                        </a>
+                    </div>
+                    <h5 class="red-border-bottom">SPECIES</h5>
+                    <!-- <div class="c-content-feature-1 wow animate fadeInUp">
+                        <div class="c-content-line-icon c-theme c-icon-screen-chart"></div>
+                        <h3 class="c-font-uppercase c-font-bold">Fully responsive</h3>
+                        <p class="c-font-thin">Beautiful cinematic designs optimized for all screen sizes and types. Compatible with Retina high pixel density displays.</p>
+                    </div> -->
+                </div>
+                <div class="col-sm-6 focus-box">
+                    <div class="service-icon">
+                        <a target="_self" href="http://www.reportnatura2000.it/habitat/">
+                        <i class="pixeden our-focus-widget-image mimi-focus-home-icon-habitat"></i> <!-- FOCUS ICON-->
+                        </a>
+                    </div>
+                    <h5 class="red-border-bottom">HABITAT</h5>
+                    <!-- <div class="c-content-feature-1 wow animate fadeInUp" data-wow-delay="0.2s">
+                        <div class="c-content-line-icon c-theme c-icon-support"></div>
+                        <h3 class="c-font-uppercase c-font-bold">Visual & Pragmatic</h3>
+                        <p class="c-font-thin">Featuring trending modern web standards.
+                            <br/>Clean and easy framework design for worry and hassle free customizations.</p>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- =========================
-   HOME SECTION       
-============================== -->
-<header id="home" class="header">
-	
-	<!-- TOP BAR -->
-	<div id="main-nav" class="navbar navbar-inverse bs-docs-nav" role="banner">
-		<div class="container">
-			<div class="navbar-header responsive-logo">
-				<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				</button>
-				<div class="navbar-brand">
-				<img src="images/logo.png" alt="Zerif">
-				</div>
-			</div>
-			<nav class="navbar-collapse collapse" role="navigation" id="bs-navbar-collapse">
-			<ul class="nav navbar-nav navbar-right responsive-nav main-nav-list">
-				<li><a href="#">Home</a></li>
-				<li><a href="{{ route('context') }}">Contesto di Riferimento</a></li>
-				<li>Specie</a>
-					<ul>
-						<li>
-							<a href="{{ route('species-basic-search') }}">Ricerca base</a>
-						</li>
-						<li>
-							<a href="{{ route('species-advanced-search') }}">Ricerca avanzata</a>
-						</li>
-                        <li>
-                            <a href="{{ route('api.cellcodes.index') }}">Ricerca cartografica</a>
-                        </li>
-					</ul>
-				</li>
-				<li><a href="#aboutus">Habitat</a></li>
-				<li><a href="{{ route('downloads') }}">Download</a></li>
-				<li><a href="#pricingtable">Link</a></li>
-			</ul>
-			</nav>
-		</div>
-	</div>
-	<!-- / END TOP BAR -->
-	
-	<!-- BIG HEADING WITH CALL TO ACTION BUTTONS AND SHORT MESSAGES -->
-	<div class="container">
-		
-		<!-- HEADING -->
-		<h1 class="intro">REPORTING DIRETTIVA HABITAT</h1>
-		
-		
-	</div> <!-- / END BIG HEADING WITH CALL TO ACTION BUTTONS AND SHORT MESSAGES  -->
-	
-</header> <!-- / END HOME SECTION  -->
-
-<!-- =========================
-   FOCUS SECTION      
-============================== -->
-
-<section class="focus" id="focus">
-<div class="container">
-	
-	<!-- SECTION HEADER -->
-	<div class="section-header">
-		
-		
-	</div>
-	<!-- / END SECTION HEADER -->
-	
-	<!-- 4 FOCUS BOXES -->
-	<div class="row">
-		
-		<!-- FIRST FOCUS BOXES -->
-		<div class="col-lg-3 col-sm-3 focus-box red wow fadeInLeft animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-			<div class="service-icon">
-				<i class="pixeden habitat-icon"></i> <!-- FOCUS ICON-->
-			</div>
-			<h5 class="red-border-bottom">Habitat</h5> <!-- FOCUS HEADING -->
-		</div>
-		<!-- / END FIRST FOCUS BOX. Other boxes has same format -->
-		
-		<div class="col-lg-3 col-sm-3 focus-box green wow fadeInLeft animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-			<div class="service-icon">
-				<span class="pixeden species-icon"></span>
-			</div>
-			<h5 class="green-border-bottom">Specie</h5>
-		</div>
-		
-		<div class="col-lg-3 col-sm-3 focus-box blue wow fadeInRight animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-			<div class="service-icon">
-				<i class="pixeden download-icon"></i>
-			</div>
-			<h5 class="blue-border-bottom">Download</h5>
-		</div>
-		
-		<div class="col-lg-3 col-sm-3 focus-box yellow wow fadeInRight animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-			<div class="service-icon">
-				<i class="pixeden link-icon"></i>
-			</div>
-			<h5 class="yellow-border-bottom">Link</h5>
-		</div>
-	</div>
-	<!-- / END 4 FOCUS BOXES -->
-	
-	<!-- OTHER FOCUSES -->
-</div> <!-- / END CONTAINER -->
-</section>  <!-- / END FOCUS SECTION -->
+<!-- END: CONTENT/FEATURES/FEATURES-1 -->
 
 
+<!-- BEGIN: CONTENT/TABS/TAB-1 -->
+<div class="c-content-box c-size-md c-no-bottom-padding c-overflow-hide">
+    <div class="c-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="c-content-tab-2 c-theme c-opt-1">
+                    
+                    <div class="c-tab-content">
+                        <div class="c-bg-img-center1" style="background-color= rgba(39, 39, 39, 1);">
+                            <div class="container">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="c-tab2-opt1-1">
+                                        <div class="c-tab-pane">
+                                            <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Reporting Direttiva Habitat</h4>
+                                            <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin "> Finalizzato alla raccolta, organizzazione e messa a disposizione dei dati e delle cartografie prodotte dall’Italia per il reporting ex Articolo17 della Direttiva "Habitat" 92/43/CEE (3° Rapporto nazionale), trasmesso alla Commissione Europea (CE) nel dicembre 2013, nonché della documentazione utile per l’adempimento delle future attività di monitoraggio e rendicontazione.
+                                            <br><br>
+                                            Nel sito sono disponibili inoltre le schede di monitoraggio contenenti i protocolli di campo specifici per tutte le specie animali e vegetali e tutti gli habitat italiani, terrestri e di acqua dolce, di interesse comunitario (elencati negli allegati All. I, II, IV, V della Direttiva). 
+                                            <br><br>
+                                            Tali schede sono state prodotte nell’ambito di un progetto nazionale concluso nell’ottobre del 2016 e contengono la descrizione delle metodiche e dei protocolli operativi utilizzabili per effettuare le attività di sorveglianza e monitoraggio in campo richieste dalla Direttiva. 
+                                            Nel sito è possibile visualizzare su scala biogeografica dati di distribuzione, stato di conservazione e trend delle specie e degli habitat italiani di direttiva, prodotti per la compilazione del 3° Rapporto nazionale ex Art. 17, ed effettuare interrogazioni e ricerche online sulle liste aggiornate delle specie e degli habitat italiani di interesse comunitario (di seguito chiamate checklists).
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- =========================
-   ABOUT US SECTION   
-============================== -->
-
-<section class="about-us" id="aboutus">
-<div class="container">
-	
-	<!-- / END SECTION HEADER -->
-	
-	<!-- 3 COLUMNS OF ABOUT US-->
-	<div class="row">
-		
-		<!-- COLUMN 1 - BIG MESSAGE ABOUT THE COMPANY-->
-		<div class="col-lg-6 col-md-6 column">
-			<div class="big-intro wow fadeInLeft animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-				 III Rapporto Direttiva Habitat
-			</div>
-		</div>
-		
-		<!-- COLUMN 2 - BRIEF ABOUT THE COMPANY-->
-		<div class="col-lg-6 col-md-6 column">
-			<p class="wow fadeInUp animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-				 In questo sito sono disponibili dati raccolti ed elaborati dall'Italia per il 3° Rapporto Direttiva Habitat: il Rapporto raccoglie dati aggiornati su distribuzione, stato di conservazione, pressioni, minacce ed i trend relativi a tutte le specie animali e vegetali e agli habitat di interesse comunitario presenti in Italia. Una sintesi dei risultati è contenuta  nel volume " Specie e habitat di interesse comunitario in Italia: distribuzione, stato di conservazione e trend" (ISPRA Serie Rapporti 194/2014).
-			</p>
-		</div>
-	</div> <!-- / END 2 COLUMNS OF ABOUT US-->
-
-	<!-- CLIENTS -->
-	<div class="our-clients">
-		<h5><span class="section-footer-title">OUR HAPPY CLIENTS</span></h5>
-	</div>
-	<!-- CLIENT LIST -->
-	<div class="client-list">
-		<ul class="wow fadeInRight animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-			<li><a href="#"><img src="images/clients/1.png" alt="Client 1"></a></li>
-			<li><a href="#"><img src="images/clients/2.png" alt="Client 2"></a></li>
-			<li><a href="#"><img src="images/clients/3.png" alt="Client 3"></a></li>
-			<li><a href="#"><img src="images/clients/1.png" alt="Client 1"></a></li>
-			<li><a href="#"><img src="images/clients/4.png" alt="Client 4"></a></li>
-			<li><a href="#"><img src="images/clients/5.png" alt="Client 5"></a></li>
-			<li><a href="#"><img src="images/clients/6.png" alt="Client 6"></a></li>
-		</ul>
-	</div> <!-- / END CLIENT LIST -->
-</div> <!-- / END CONTAINER -->
-
-</section> <!-- END ABOUT US SECTION -->
-
-<!-- =========================
-   FOOTER             
-============================== -->
-
-<footer>
-<div class="container">
-	
-	<!-- COMPANY ADDRESS-->
-	<div class="col-md-5 company-details">
-		<div class="icon-top red-text">
-		    <i class="icon-fontawesome-webfont-302"></i>
-		</div>
-		PO Box 16122 Collins Street West, Victoria 8007 Australia
-	</div>
-	
-	<!-- COMPANY EMAIL-->
-	<div class="col-md-2 company-details">
-		<div class="icon-top green-text">
-		<i class="icon-fontawesome-webfont-329"></i>
-		</div>
-		 contact@designlab.co
-	</div>
-	
-	<!-- COMPANY PHONE NUMBER -->
-	<div class="col-md-2 company-details">
-		<div class="icon-top blue-text">
-		<i class="icon-fontawesome-webfont-101"></i>
-		</div>
-		+613 0000 0000
-	</div>
-	
-	<!-- SOCIAL ICON AND COPYRIGHT -->
-	<div class="col-lg-3 col-sm-3 copyright">
-		<ul class="social">
-			<li><a href=""><i class="icon-facebook"></i></a></li>
-			<li><a href=""><i class="icon-twitter-alt"></i></a></li>
-			<li><a href=""><i class="icon-linkedin"></i></a></li>
-			<li><a href=""><i class="icon-behance"></i></a></li>
-			<li><a href=""><i class="icon-dribbble"></i></a></li>
-		</ul>
-		 ©2013 Zerif LLC
-	</div>
-</div> <!-- / END CONTAINER -->
-</footer> <!-- / END FOOOTER  -->
-
-<!-- SCRIPTS -->
-<script src="js/vendor/bootstrap.min.js"></script>
-<script src="js/vendor/wow.min.js"></script>
-<script src="js/vendor/jquery.nav.js"></script>
-<script src="js/vendor/jquery.knob.js"></script>
-<script src="js/vendor/owl.carousel.min.js"></script>
-<script src="js/vendor/smoothscroll.js"></script>
-<script src="js/vendor/jquery.vegas.min.js"></script>
-<script src="js/vendor/zerif.js"></script>
-
-</body>
-</html>
+@endsection

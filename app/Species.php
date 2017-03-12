@@ -42,6 +42,26 @@ class Species extends Model
         return $this->belongsToMany('App\Trend','species_data0712_trend','species_code','trend_id')->withPivot('biogeographicregion_id');
     }
 
+    public function modification_codes() {
+        return $this->belongsToMany('App\ModificationCode','species_modified','species_code','modified_code');
+    }
+    
+    public function hasSpecification() {
+    	return DB::table('species_iucn')->where('species_code',$this->species_code)->first() != null;
+    }
+
+    public function hasSpecificationLRI() {
+    	return ($this->specification->lri_category != '' || $this->specification->lri_criterion != '');
+    }
+
+    public function hasSpecificationIUCN() {
+    	return ($this->specification->iucn_category != '' || $this->specification->iucn_criterion != '');
+    }
+
+    public function specification() {
+		return $this->belongsTo('App\Specification','species_code');
+    }
+
     // This method gives back a formatted array with the values REGBIO[STATUS_PRESERVE]
     public function getFormattedPresences()
     {
@@ -142,64 +162,85 @@ class Species extends Model
 
     // This section is about the modified Species... at the moment the system is not optimized so se must base the search on the table itself
 
-    public function handleTheCode()
-    {
-    	$connected_species = collect([]);
+    public function isModified() {
+        // since it is a collection that can be empty
+    	return count($this->modification_codes) != 0;
+    }
 
-    	switch ($this->modified_code)
-    	{
-    		case 'NN':
-    			$connected_species['type_of_modification'] = 'NN';
-    			$connected_species['text_of_modification'] = 'Specie a cui è stato modificato il nome';
-    			$connected_species['species'] = Species::where('species_code',$this->reported_species_code)->get();
-    		break;
+    public function handleModifiedSpecies() {
+    	$out_collection = collect();
+        foreach ($this->modification_codes as $mod_code) {
+        	switch ($mod_code->modified_code) {
+        		case 'NN':
+        			$out_collection = $out_collection->merge($this->handleNN());
+        		break;
 
-    		case 'SP':
-    			$connected_species['type_of_modification'] = 'SP';
-    			if ($this->reported_species_code == '')
-    			{
-    				$connected_species['text_of_modification'] = 'Specie che è stata splittata';
-    				$connected_species['species'] = Species::where('reported_species_code', $this->species_code)->get();
-    			}
-    			else
-    			{
-    				$connected_species['text_of_modification'] = 'Specie derivata dallo split di un originale';
-    				$connected_species['species'] = Species::where('species_code', $this->reported_species_code)->get();
-    			}
+        		case 'SP':
+        			$out_collection =  $out_collection->merge($this->handleSP());
+        		break;
 
-    			
-    		break;
+        		case 'CO':
+        			$out_collection =  $out_collection->merge($this->handleCO());
+        		break;
 
-    		case 'CO':
-    			$connected_species['type_of_modification'] = 'CO';
-    			$connected_species['text_of_modification'] = 'Specie diventata complex';
-    			$connected_species['species'] = Species::where('species_code',$this->reported_species_code)->get();
-    		break;
+        		case 'AD':
+        			$out_collection =  $out_collection->merge($this->hanldeAD());
+        		break;
+        	}
+        }
+        return $out_collection;
+    }
 
-    		case 'AD':
-    			$connected_species['type_of_modification'] = 'AD';
-    			$connected_species['text_of_modification'] = 'Specie aggiunta successivamente';
-    			$connected_species['species'] = Species::where('species_code',$this->reported_species_code)->get();
-    		break;
+    private function handleNN() {
+    	if (DB::table('species_modified_nn')->where('species_code',$this->species_code)->exists()) {
+    		$connected_species['text_of_modification'] = 'Specie a cui è stato modificato il nome dopo il report 2007/2012';
 
-    		default:
-
+    		$tempData = DB::table('species_modified_nn')->where('species_code',$this->species_code)->pluck('species_code_new');
+    		$connected_species['species'] = Species::whereIn('species_code', $tempData)->get();
     	}
 
+    	if (DB::table('species_modified_nn')->where('species_code_new',$this->species_code)->exists()) {
+    		$connected_species['text_of_modification'] = 'Specie con nome modificato da specie originale dopo il report 2007/2012';
+    		$tempData = DB::table('species_modified_nn')->where('species_code_new',$this->species_code)->pluck('species_code');
+    		$connected_species['species'] = Species::whereIn('species_code', $tempData)->get();
+    	}
     	return $connected_species;
     }
 
-    // This is the old version before using the status_preserve table. Actually we could use a biogeographcregions_species table apart
-    /*public function biogeographicregions() {
-    	foreach ($this->cellcodes as $cc) {
-            $cc->biogeographicregions->unique();
-    		foreach ($cc->biogeographicregions as $bioreg) {
-    			if (!in_array($bioreg->name, $tmpBioReg)) {
-    				$tmpBioReg[] = $bioreg->name;
-    			}
-    		}
+    private function handleSP() {
+    	if (DB::table('species_modified_sp')->where('species_code',$this->species_code)->exists()) {
+    		$connected_species['text_of_modification'] = 'Specie splittata dopo il report 2007/2012';
+    		$tempData = DB::table('species_modified_sp')->where('species_code',$this->species_code)->pluck('species_code_new');
+    		$connected_species['species'] = Species::whereIn('species_code', $tempData)->get();
     	}
-    	return $tmpBioReg;
-    }*/
 
+    	if (DB::table('species_modified_sp')->where('species_code_new',$this->species_code)->exists()) {
+    		$connected_species['text_of_modification'] = 'Specie derivata da uno split di una specie originale dopo il report 2007/2012';
+    		$tempData = DB::table('species_modified_sp')->where('species_code_new',$this->species_code)->pluck('species_code');
+    		$connected_species['species'] = Species::whereIn('species_code', $tempData)->get();
+    	}
+    	return $connected_species;
+    }
+
+    private function handleCO() {
+    	if (DB::table('species_modified_co')->where('species_code',$this->species_code)->exists()) {
+    		$connected_species['text_of_modification'] = 'Specie modificata in complex dopo il report 2007/2012';
+    		$tempData = DB::table('species_modified_co')->where('species_code',$this->species_code)->pluck('species_code_new');
+    		$connected_species['species'] = Species::whereIn('species_code', $tempData)->get();
+    	}
+
+    	if (DB::table('species_modified_co')->where('species_code_new',$this->species_code)->exists()) {
+    		$connected_species['text_of_modification'] = 'Specie complex modificata da una specie originale dopo il report 2007/2012';
+    		$tempData = DB::table('species_modified_co')->where('species_code_new',$this->species_code)->pluck('species_code');
+    		$connected_species['species'] = Species::whereIn('species_code', $tempData)->get();
+    	}
+    	return $connected_species;
+    }
+
+    private function handleAD() {
+    	//$connected_species['text_of_modification'] = 'Specie aggiunta dopo il report 2007/2012';
+    	//connected_species['species'] = '';
+        //return $connected_species;
+    }
+   
 }

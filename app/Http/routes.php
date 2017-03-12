@@ -19,6 +19,8 @@ Route::get('test', function(){
 });
 
 Route::resource('api/species','SpeciesController');
+Route::resource('api/habitat','HabitatController');
+//
 
 Route::resource('api/cellcodes','CellCodeController');
 
@@ -26,13 +28,19 @@ Route::get('/', array('as' => 'home', function () {
 	return view('basic.landing');
 }));
 
-Route::get('context', array('as' => 'context', function() {
-	return view('basic.context');
+Route::get('/contesto-riferimento', array('as' => 'contesto-riferimento', function () {
+	return view('basic.reference-context');
 }));
 
-Route::get('downloads', array('as' => 'downloads', function() {
+Route::get('/downloads', array('as' => 'downloads', function () {
 	return view('basic.downloads');
 }));
+
+Route::get('/links', array('as' => 'links', function () {
+	return view('basic.links');
+}));
+
+
 
 Route::get('species-basic-search/{code?}', array('as' => 'species-basic-search', function($code = null) {
 	$species = null;
@@ -41,6 +49,18 @@ Route::get('species-basic-search/{code?}', array('as' => 'species-basic-search',
 	}
 	return view('basic.species-graphic-search', compact('species'));
 }));
+
+Route::get('habitat-basic-search/{code?}', array('as' => 'habitat-basic-search', function($code = null) {
+	$habitat = null;
+	if ($code) {
+		$habitat = App\Habitat::where('habitat_code',$code)->first();
+	}
+	return view('basic.habitat-graphic-search', compact('habitat'));
+}));
+
+Route::get('habitat', function() {
+	return App\Habitat::all();
+});
 
 Route::get('species', function() {
 	return App\Species::all();
@@ -96,11 +116,21 @@ Route::get('api/taxonomy/{ids}', function($ids) {
 
 });
 
-Route::get('api/taxonomytospecies/', 'TaxonomyController@getSpeciesFromTaxonomy');
+Route::get('taxonomytospecies/', 'TaxonomyController@getSpeciesFromTaxonomy');
 
-Route::get('api/biogeographicregtospecies/', 'BiogeographicregionController@getSpeciesFromBiogeographicRegion');
+Route::get('biogeographicregtospecies', 'BiogeographicregionController@getSpeciesFromBiogeographicRegion');
 
-Route::get('api/conservationstatetospecies', 'StatusConserveController@getSpeciesFromStatusConserve');
+Route::get('conservationstatetospecies', 'StatusConserveController@getSpeciesFromStatusConserve');
+
+Route::get('macrocategoriestohabitat', 'MacrocategoryController@getHabitatsFromMacrocategory');
+
+Route::get('biogeographicregtohabitat', 'BiogeographicregionController@getHabitatsFromBiogeographicRegion');
+
+Route::get('conservationstatetohabitat', 'StatusConserveController@getHabitatsFromStatusConserve');
+
+Route::get('cellcodes/species/{id}', 'CellCodeController@getSpeciesFromCellcodes');
+
+Route::get('cellcodes/habitat/{id}', 'CellCodeController@getHabitatsFromCellcodes');
 
 /*Route::get('api/taxonomy-to-species/{ids}', function($ids) {
 	$pieces = explode(":", $ids);
@@ -154,7 +184,7 @@ Route::get('api/conservationstatetospecies', 'StatusConserveController@getSpecie
 	return json_encode($outputData);
 });*/
 
-Route::get('api/species-advanced-search', array('as'=>'species-advanced-search', function () {
+Route::get('species-advanced-search', array('as'=>'species-advanced-search', function () {
 
 	$kingdoms = App\Kingdom::all();
 	$orders = App\Order::all();
@@ -165,3 +195,19 @@ Route::get('api/species-advanced-search', array('as'=>'species-advanced-search',
 
     return view('basic.species-advanced-search', compact('kingdoms','phyla','classes','order','families','genera'));
 }));
+
+Route::get('habitat-advanced-search', array('as'=>'habitat-advanced-search', function () {
+
+	$macrocategories = App\Macrocategory::all();
+    return view('basic.habitat-advanced-search', compact('macrocategories'));
+}));
+
+Route::get('species-cellcodes-search', array('as' => 'species-cellcodes-search', function() {
+	return view('basic.species-cellcodes-search');
+}));
+
+Route::get('habitat-cellcodes-search', array('as' => 'habitat-cellcodes-search', function() {
+	return view('basic.habitat-cellcodes-search');
+}));
+
+

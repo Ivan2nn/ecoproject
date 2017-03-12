@@ -161,11 +161,6 @@ Vue.component('multi-species-info-cell', {
       			return "../images/grey_null.png";
       		};
 
-      	},
-
-      	goToSpeciesPage: function(item) {
-      		console.log('test');
-      		this.$router.go('/');
       	}
 	}
 });
@@ -284,6 +279,61 @@ new Vue({
 	},
 
 	methods: {
+
+		searchSpeciesFromTaxonomy: function() {
+			var checked_ids = []; 
+			checked_ids = $("#Animalia_jstree").jstree("get_selected",true);
+			
+			var checked_leaves = checked_ids.filter(function(elm) {
+				if (elm.children.length == 0)
+					return elm;		
+				}).map(function(elm, index) {
+					return elm.li_attr['code'];
+				});
+				
+			this.$http.get('/taxonomytospecies', {params: { codes: checked_leaves } }).then((response) => {
+				// Inside the response data there are also the taxonomy data, but the google map API cna distinguish by itself
+				this.speciesDetails = JSON.parse(response.data);
+				this.loading = false;
+			}, (response) => {
+
+			});
+		},
+
+		searchSpeciesFromBioreg: function() {
+			var switchery_alp = document.querySelector('.js-switch-alp');
+			var switchery_con = document.querySelector('.js-switch-con');
+			var switchery_med = document.querySelector('.js-switch-med');
+
+			var regbio_checks = {"ALP" : switchery_alp.checked, "CON" : switchery_con.checked, "MED" : switchery_med.checked};
+			
+			this.$http.get('/biogeographicregtospecies', {params: { regbio_checks: regbio_checks } }).then((response) => {
+				// Inside the response data there are also the taxonomy data, but the google map API cna distinguish by itself
+				//console.log(JSON.parse(response.data));
+				this.speciesDetails = JSON.parse(response.data);
+				this.loading = false;
+			}, (response) => {
+
+			});
+		},
+
+		searchSpeciesFromConservationStatus: function() {
+			var switchery_status_fv = document.querySelector('.js-switch-status-fv');
+			var switchery_status_u1 = document.querySelector('.js-switch-status-u1');
+			var switchery_status_u2 = document.querySelector('.js-switch-status-u2');
+			var switchery_status_xx = document.querySelector('.js-switch-status-xx');
+
+			var status_checks = {"FV" : switchery_status_fv.checked, "U1" : switchery_status_u1.checked, "U2" : switchery_status_u2.checked, "XX" : switchery_status_xx.checked};
+			
+			this.$http.get('/conservationstatetospecies', {params: { status_checks: status_checks } }).then((response) => {
+				// Inside the response data there are also the taxonomy data, but the google map API cna distinguish by itself
+				//console.log(JSON.parse(response.data));
+				this.speciesDetails = JSON.parse(response.data);
+				this.loading = false;
+			}, (response) => {
+
+			});
+		},
 
 		filterQuery: function(queryString) {
 			return function(element) {
